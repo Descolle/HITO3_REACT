@@ -3,6 +3,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Pizzas from "./json/pizzas"
 import { useState } from "react";
+import { DiBlackberry } from "react-icons/di";
 
 function CardPizza() {
 let copyPizzas = [...Pizzas, "<----copia de las pizzas"]; //con spreed operator se hace copia del arreglo original para poder trabajar con él
@@ -20,8 +21,8 @@ const catchPizza = (pizza) => {
     <div>
       <h2>Carrito</h2>
       <ul>
-        {cart.map((item, index) => (
-          <li key={item.id}>{item.img} - {item.name} - ${item.price}</li>
+        {cart.map((item) => (
+          <li key={item.id}><img src={item.img} style={{width:"150px",border:"2pxsolid #fff"}}/> - {item.name} - ${item.price}</li>
         ))}
       </ul>
       <div>
