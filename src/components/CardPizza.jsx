@@ -21,7 +21,7 @@ const catchPizza = (pizza) => {
       <h2>Carrito</h2>
       <ul>
         {cart.map((item, index) => (
-          <li key={item.id}>{item.name} - ${item.price}</li>
+          <li key={item.id}>{item.img} - {item.name} - ${item.price}</li>
         ))}
       </ul>
       <div>
