@@ -3,7 +3,7 @@ import Home from "./components/Home";
 import CardPizza from "./components/CardPizza";
 import "./App.css";
 import Footer from "./components/Footer";
-import SignUp from "./components/SignUp";
+import Cart from "./components/Cart";
 
 
 
@@ -12,9 +12,8 @@ function App() {
   return (
     <>
       <Home></Home>
-      <div className="pizzacontainer">
+      <Cart></Cart>
       <CardPizza/>
-      </div>
       <Footer></Footer>
     </>
   );
