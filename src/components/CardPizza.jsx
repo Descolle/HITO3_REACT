@@ -1,52 +1,91 @@
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
-import Pizzas from "./json/pizzas"
+import Pizzas from "./json/pizzas";
 import { useState } from "react";
-import { DiBlackberry } from "react-icons/di";
 
 function CardPizza() {
-let copyPizzas = [...Pizzas, "<----copia de las pizzas"]; //con spreed operator se hace copia del arreglo original para poder trabajar con él
+  let copyPizzas = [...Pizzas, "<----copia de las pizzas>"]; //con spread operator se hace copia del arreglo original para poder trabajar con él
 
-//tenemos el cart que debe renderizarse totalmente y el pedido que toma las ordenes del boton
-const [pedido, setPedido] = useState([])
-const [cart, setCart] = useState([])
+  const [cart, setCart] = useState([]);
+  const [countPizzas, setCountPizzas] = useState(0);
+  const [total, setTotal] = useState(0);
 
-const catchPizza = (pizza) => {
-  setPedido([...pedido,pizza]);
-  setCart([...cart,pizza])
-}
+  const catchPizza = (pizza) => {
+    const existingPizza = cart.find((item) => item.id === pizza.id);
+
+    if (existingPizza) {
+      const updatedCart = cart.map((item) =>
+        item.id === pizza.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      setCart(updatedCart);
+    } else {
+      setCart([...cart, { ...pizza, quantity: 1 }]);
+    }
+
+    // Update the total price and total pizza count
+    setTotal(total + pizza.price);
+    setCountPizzas(countPizzas + 1);
+  };
+
+  const clearCart = () => {
+    setCart([]);
+    setTotal(0);
+    setCountPizzas(0);
+  };
 
   return (
     <div>
       <h2>Carrito</h2>
       <ul>
-        {cart.map((item) => (
-          <li key={item.id}><img src={item.img} style={{width:"150px",border:"2pxsolid #fff"}}/> - {item.name} - ${item.price}</li>
+        {cart.map((pizza) => (
+          <li key={pizza.id}>
+            <img
+              src={pizza.img}
+              style={{ width: "150px", border: "2px solid #fff" }}
+            />{" "}
+            - {pizza.name} - ${pizza.price} x {pizza.quantity}
+          </li>
         ))}
       </ul>
       <div>
-        {Pizzas.map(item =>
-        <Card style={{ width: "40vh" }} className="pizza">
-          <Card.Img variant="top" src={item.img} />
-          <Card.Body>
-            <Card.Title className="pizza_name">{item.name}</Card.Title>
-            <div className="ingredientes">
-              <h5 className="ingrediente">Ingredientes:</h5>
-              {item.ingredients.map((ingredient, i) => (
+        <h3>Total:</h3>
+        <span className="total-pagar">${total.toFixed(2)}</span>
+      </div>
+      <Button variant="danger" onClick={clearCart} className="clear-all">
+        Vaciar Carrito
+      </Button>
+      <div>
+        {Pizzas.map((pizza) => (
+          <Card style={{ width: "40vh" }} className="pizza" key={pizza.id}>
+            <Card.Img variant="top" src={pizza.img} />
+            <Card.Body>
+              <Card.Title className="pizza_name">{pizza.name}</Card.Title>
+              <div className="ingredientes">
+                <h5 className="ingrediente">Ingredientes:</h5>
+                {pizza.ingredients.map((ingredient, i) => (
                   <p key={i}>🍕{ingredient}</p>
                 ))}
-            </div>
-          </Card.Body>
-          <ListGroup className="list-group-flush">
-            <ListGroup.Item><strong>Valor:${item.price}</strong></ListGroup.Item>
-          </ListGroup>
-          <Card.Body>
-            <Button variant="primary">👀Ver Más</Button>{" "}
-            <Button variant="success" onClick={()=>catchPizza(item)}>🛒Añadir</Button>{" "}
-          </Card.Body>
-        </Card>
-        )}
+              </div>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+              <ListGroup.Item>
+                <strong>Valor: ${pizza.price}</strong>
+              </ListGroup.Item>
+            </ListGroup>
+            <Card.Body>
+              <Button variant="primary">👀Ver Más</Button>{" "}
+              <Button
+                variant="success"
+                onClick={() => catchPizza(pizza)}
+              >
+                🛒Añadir
+              </Button>{" "}
+            </Card.Body>
+          </Card>
+        ))}
       </div>
     </div>
   );
