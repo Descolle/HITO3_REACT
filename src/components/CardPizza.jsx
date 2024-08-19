@@ -4,8 +4,9 @@ import Button from "react-bootstrap/Button";
 import Pizzas from "./json/pizzas";
 
 function CardPizza({ catchPizza }) {
+  console.log(Pizzas);
   return (
-    <div>
+    <div className="pizzacontainer">
       {Pizzas.map((pizza) => (
         <Card style={{ width: "40vh" }} className="pizza" key={pizza.id}>
           <Card.Img variant="top" src={pizza.img} />

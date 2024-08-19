@@ -13,7 +13,6 @@ function App() {
     <>
       <Home></Home>
       <Cart></Cart>
-      <CardPizza/>
       <Footer></Footer>
     </>
   );

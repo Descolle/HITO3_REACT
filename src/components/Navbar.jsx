@@ -9,8 +9,10 @@ import LogIn from './LogIn';
 import { useSign } from "./hooks/useSign";
 import { useLogIn } from "./hooks/useLogIn"; // Importa el hook que maneja el estado del modal
 
+
 function NavBar() {
   const token = false;
+  const total = 25000;
   const [openFormulario, register, closeRegister] = useSign(false); // Controla el estado del modal
   const [abierto, OpenLog, closeLog] = useLogIn();
   return (
@@ -32,6 +34,11 @@ function NavBar() {
           <Button variant="outline-light" className="text-white" onClick={OpenLog}>
             <img src={token ? lockopen : lock} alt="lock status" />
             {token ? "LogOut" : "Login"}
+          </Button>
+        </Nav>
+        <Nav className="ms-auto">
+          <Button variant="outline-light" className="text-white">
+            🛒Total:<a href="#" className="valor">${total.toLocaleString()}</a>
           </Button>
         </Nav>
       </Container>

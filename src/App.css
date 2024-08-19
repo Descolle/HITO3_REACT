@@ -14,10 +14,10 @@
   justify-content: center;
 }
 .pizzacontainer {
-  display: flex;
-  justify-content: space-evenly;
-  border: 3px solid goldenrod;
-  margin-bottom: 50px;
+  display:grid;
+  justify-content: space-between;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
 }
 .pizza {
   margin-top: 20px;
