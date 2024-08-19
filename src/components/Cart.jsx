@@ -56,10 +56,10 @@ function Cart() {
       <h2>Carrito</h2>
       <ul>
         {cart.map((pizza) => (
-          <li key={pizza.id}>
+          <li key={pizza.id} className="text-cart">
             <img
               src={pizza.img}
-              style={{ width: "150px", border: "2px solid #fff" }}
+              style={{ width: "150px", border: "2px solid #000000" }}
             />{" "}
             - {pizza.name} - ${pizza.price} x {pizza.quantity}{" "}
             <Button
